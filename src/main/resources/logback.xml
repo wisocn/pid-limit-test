@@ -1,0 +1,17 @@
+<configuration>
+    <property resource="application.yml" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <charset>UTF-8</charset>
+    </appender>
+
+    <!-- Define an asynchronous appender wrapping the console appender -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- Reference to the appender it wraps -->
+        <appender-ref ref="STDOUT"/>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="ASYNC"/>
+    </root>
+</configuration>
