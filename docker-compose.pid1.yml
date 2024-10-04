@@ -7,7 +7,7 @@ services:
     container_name: micronaut
     ports:
       - "8080:8080"
-    pids_limit: 100
+    pids_limit: 1
     build:
       context: .
 
