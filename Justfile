@@ -8,23 +8,20 @@ export GIT_SHA := `git rev-parse --short HEAD`
 default:
 	@just --list --unsorted
 
-load-test:
-   ab -n 10000 -c 100 http://localhost:8080/log/test12351/
+start-p1: build
+    docker-compose -f docker-compose.pid1.yml up
+
+start-p100: build
+    docker-compose -f docker-compose.pid100.yml up
+
+start-p-unlimited: build
+    docker-compose -f docker-compose.pid-unlimited.yml up
+
+spawn-threads threads="100":
+    curl http://localhost:8080/threads/platform/{{threads}}
 
 build:
-	./gradlew clean build -xtest
+    ./gradlew clean build -xtest
 
-run: build
-  ./gradlew run
 
-teardown:
-	docker-compose down
-
-restart: teardown package start
-
-start:
-	docker-compose up -d
-
-package: build
-	docker-compose build --no-cache
 
